@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/login.css" />
+    <!--<link rel="stylesheet" href="css/swiper.min.css" />-->
+   
+		<title>注册</title>
+	</head>
+	<body>
+		<nav>
+			<img class="top_logo" src="img/landing/top_logo.png">
+			<a href="#"><img class="top_font" src="img/login/top_font.png"  /></a>			
+		</nav>
+		<div class="login_main">
+			<form>
+				<ul class="warning">
+					<li class="tip1">用户名已存在</li>
+					<li class="tip2">数据库报错</li>
+					<!--<li class="tip3">您两次输入的密码不一致</li>
+					<li class="null">您好！用户名或密码不能为空</li>-->
+				</ul>
+				<div><span class="login_user">账户名称: </span><input id="username" type="text"  placeholder="请输入账号" /><span id="false_name" class="false_ti">请输入用户名</span></div>
+				
+				<div> <span class="login_user">登录密码: </span><input id="pwd1" type="password"  placeholder="请输入密码" /><span id="false_psw1" class="false_ti">请输入密码</span></div>
+				<div><span class="login_user">确认密码: </span><input id="pwd2" type="password"  placeholder="请输入密码" /><span id="false_psw2" class="false_ti">两次密码不同</span></div>
+			<p>
+				<input type="checkbox" />
+				<span>我已阅读并接受走秀网服务条款</span>
+			</p>
+			<h3 class="zhuceBtn">注册</h3>	
+			</form>
+					
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.0.0.js" ></script>
+	<script>
+		$(function(){
+			register();
+			$('.top_logo').click(function(){
+				window.history.back(-1);
+				
+			})
+		})
+         
+			function register(){
+				$('.zhuceBtn').bind('click',function(){
+					  var username = $('#username').val();
+					  var pwd1 = $('#pwd1').val();
+					  var pwd2 = $('#pwd2').val();
+						if(username == ''){
+							$('#false_name').show();
+							$('#false_psw1').hide();
+							$('#false_psw2').hide();
+						}else if(pwd1 == ''){
+							$('#false_name').hide();
+							$('#false_psw1').show();					
+							$('#false_psw2').hide();
+						}
+						else if(pwd2 == ''){
+							$('#false_name').hide();
+							$('#false_psw1').hide();
+							$('#false_psw2').show();
+						}
+					else{
+						var setdata = {
+							status:"register",
+							userID:username,
+							password:pwd1
+						};
+						if(pwdTest(setdata.password,pwd2)){
+							//向后台请求数据
+							getData(setdata);
+						}else{
+							$('#false_psw2').show();
+						}
+						
+						
+					}
+				})
+			}
+			
+			function pwdTest(pwd1,pwd2){
+				var rel = false;
+				if(pwd1 === pwd2){
+					rel =true;
+				}
+				return rel;
+			}
+			function getData(setdata){
+				$.get("http://datainfo.duapp.com/shopdata/userinfo.php",setdata,function(data){
+					if(data == 0){
+						$('.tip1').show();
+					}else if(data == 2){
+						$('.tip2').show();
+					}else{
+						window.location.href='loading.html';
+					}
+				})
+			}
+			
+			
+
+		
+		
+	</script>
+</html>

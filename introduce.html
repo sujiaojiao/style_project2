@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <link rel="stylesheet" href="css/reset.css" />
+	    <link rel="stylesheet" href="css/index.css" />
+	    <link rel="stylesheet" href="css/login.css" />
+	    <link rel="stylesheet" href="css/list.css" />
+	    <link rel="stylesheet" href="css/introduce.css" />
+		<title>商品详情</title>
+	</head>
+	<body>
+		<nav>
+			<img class="top_logo" src="img/landing/top_logo.png">
+		    <a href=""><img class="top_icon1" src="img/common/top_icon1.png" /></a>
+			<a href="loading.html"><img class="top_icon2" src="img/common/top_icon2.png" /></a>	
+		</nav>
+		<div class="introduce_main">
+			<div class="introduce_main_pic">
+				<!--<div class="infoBox">
+					<img src="img/index/banner-img3.jpg" />
+					<h4 class="one">韩都衣舍韩版2015秋装新款女装翻领绣花图案长袖衬衫</h4>
+					<h4><span>¥ 260</span> <span>¥ 433</span> </h4>
+					<h4>尺码：160/84A 165/88A</h4>
+					<h4>数量：<strong>1</strong></h4>
+				</div>-->
+			</div>
+			<div class="introduce_goods">
+				<img src="img/index/info_bg.png" />
+				<span>查看商品详情</span>
+				<img src="img/index/info_icon.png" />				
+			</div>
+			<div class="introduce_shop_car">
+				<div class="shop_car_btn">放入购物袋</div>
+			</div>
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.0.0.js" ></script>
+	<script>
+	$(function(){
+			$('.top_logo').click(function(url){
+				window.history.back(-1);
+			})
+		})
+
+		$.ajax({
+			type:"get",
+			url:"http://datainfo.duapp.com/shopdata/getGoods.php",
+			async:true,
+			data:{goodsID:GetQueryString("goodsID")},
+			dataType:"jsonp",
+			success:function(data){
+//				console.log(data[0]);
+				$.each(data, function(i) {
+					$discount = (data[i].discount == 0)?1:data[i].discount*0.1;
+					var info = '<img src="'+data[0].goodsListImg+'" /><h4 class="one">'+data[0].goodsName+'</h4><h4><span>¥ '+data[0].price+'</span> <span>¥ '+parseInt(data[0].price/$discount)+'</span> </h4><h4>尺码：160/84A 165/88A</h4><h4>数量：<strong>1</strong></h4>';
+					$('.introduce_main_pic').append(info);
+					$goodsDetails = $('.introduce_main_pic').siblings().eq(0);
+					$goodsDetails[0].goodsID = data[0].goodsID;
+					$goodsDetails2 = $('.introduce_main_pic');
+					$goodsDetails2[0].goodsID = data[0].goodsID;
+						
+					jumpDetails($goodsDetails);
+					jumpDetails($goodsDetails2);
+				});
+			},
+			error:function(data){
+				//失败后的回调函数
+				if(data == 0){
+					console.log("无数据！");
+				}
+			},
+			beforeSend:function(){
+				//发送前调用
+			}
+		});
+		function jumpDetails(obj){
+		obj.bind('click',function(){
+			window.location.href = 'goodsDetails.html?goodsID='+this.goodsID;
+		})
+	}
+		function GetQueryString(name){
+			/*定义正则，用于获取相应的参数*/
+			var reg = new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
+			/*字符串截取，获取匹配参数值*/
+			var r = window.location.search.substr(1).match(reg);
+			/*但会参数值*/
+			if(r!=null)return decodeURI(r[2]); return null;
+		}
+		
+	</script>
+</html>

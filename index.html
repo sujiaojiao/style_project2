@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/swiper.min.css" />
+    
+    <title></title>
+    <script type="text/javascript">
+    	
+    </script>
+</head>
+<body>
+		<nav>
+			<a href="index.html"><img class="logo" src="img/common/logo.png"></a>
+			<a href="loading.html"><img class="top_icon2" src="img/common/top_icon2.png" /></a>
+			<a href=""><img class="top_icon1" src="img/common/top_icon1.png" /></a>			
+		</nav>
+		<div class="main">		
+			<div class="swiper-container">
+			    <div class="swiper-wrapper">
+			        <div class="swiper-slide"><img class="pic" src=""></div>
+			        <div class="swiper-slide"><img class="pic" src="" /></div>
+			        <div class="swiper-slide"><img class="pic" src="" /></div>
+			        <div class="swiper-slide"><img class="pic" src="" /></div>
+			    </div>
+			    <div class="swiper-pagination"></div>
+			</div>	
+			<ul></ul>				
+		</div>
+				
+		<footer>
+			<ul id="footer1">
+				<li >
+					<a href="index.html">
+						<img class="logo_footer" src="img/common/foot_bg1.png">
+						<h5>首页</h5>
+					</a>
+				</li>
+				<li>
+					<a href="list.html">
+						<img class="logo_footer" src="img/common/foot_bg2.png">
+						<h5>分类</h5>
+					</a>
+				</li>
+				<li>
+					<a href="search.html">
+						<img class="logo_footer" src="img/common/foot_bg3.png">
+						<h5>搜索</h5>
+					</a>
+				</li>
+				<li>
+					<a href="more.html">
+						<img class="logo_footer" src="img/common/foot_bg4.png">
+						<h5>更多</h5>
+					</a>
+				</li>
+				
+			</ul>
+		</footer>
+
+	
+</body>
+<script type="text/javascript" src="js/jquery-3.0.0.js" ></script>
+<script type="text/javascript" src="js/swiper-3.3.1.min.js" ></script>
+<script>
+	var mySwiper = new Swiper('.swiper-container',{
+	pagination : '.swiper-pagination',
+	autoplay : 1000,
+		loop:true,
+	   autoplayDisableOnInteraction : false,//pagination : '#swiper-pagination1',
+	})
+	//$('.promo ul').append($('.promo ul li').eq(0).clone(true))
+	$(function(){
+		$(".logo_footer ").eq(0).attr('src','img/index/foot_icon1.png');
+		$("#footer1 li ").eq(0).css('backgroundImage','url(img/search/top_bgline.png)');
+			
+		banner();
+		clothes_list();
+	})
+	function jump(obj){
+		obj.bind('click',function(){
+			window.location.href = 'introduce.html?goodsID='+$(this).attr("goodsID");
+		})
+	}
+	
+	function banner(){	
+	   $.ajax({
+			type:"get",
+			url:" http://datainfo.duapp.com/shopdata/getBanner.php",
+			dataType:'jsonp',
+			success:function(data){				
+				for (var i=0;i<data.length;i++) {
+				$(".swiper-slide:eq("+0+") img").attr("src",eval(data[3].goodsBenUrl)[0]);
+				$(".swiper-slide:eq("+5+") img").attr("src",eval(data[0].goodsBenUrl)[0]);
+				$(".swiper-slide:eq("+(i+1)+") img").attr("src",eval(data[i].goodsBenUrl)[0]);
+			   }	
+			},
+			error:function(data){
+				//失败后的回调函数
+				if(data == 0){
+					console.log("无数据！");
+				}
+			},
+			beforeSend:function(){
+				//发送前调用
+			}
+		});
+	}
+	function clothes_list(){
+		$.ajax({
+			type:"get",
+			url:" http://datainfo.duapp.com/shopdata/getGoods.php",
+			dataType:'jsonp',
+//			data:{'pageCode':0,'linenumber':8},
+			success:function(data){
+//				console.log(data);
+				var json = eval(data);
+				for (var i = 0; i < json.length; i++) {
+				$discount = (json[i].discount == 0)? 1:json[i].discount*0.1;
+				var uli = "<li class='goodsTip' goodsID='"+data[i].goodsID+"' >"+
+					"<div class='left'><img class='close_pic' src='"+json[i].goodsListImg+"'/></div>"+				
+					"<div class='right'>"+
+						"<h6>"+json[i].goodsName+"</h6>"+
+						"<p><strong class='price'>¥ 198</strong> <span class='pre_price'>¥433</span></p>"+
+						"<strong class='dis'>"+json[i].discount+"</strong><span class='dis_font'>折</span>"+
+						"<div class='shop_car'><img src='img/index/bg_car.png' /></div>"	+					
+					"</div>"+
+				"</li>";
+				 $("ul").append(uli);
+				 var html1 =  $(".price").html();
+				 $(".price").eq(i).html(html1.substring(0,1) +json[i].price);
+				 var html2 =  $(".pre_price").html();
+				 $(".pre_price").eq(i).html(html2.substring(0,1) + parseInt(json[i].price/$discount));
+				 jump($('.goodsTip'));
+				 console.log(data[i].goodsID);
+				}
+				 $("ul").append("<p style='width: 100%; height: 10%;'></p>")
+				
+//				$.each(json, function(index,item) {
+//					var goodsID = json[index].goodsID;
+//					var classID = json[index].classID;
+//					var goodsName = json[index].goodsName;
+//					var goodsListImg = json[index].goodsListImg;
+//					var price = json[index].price;
+//					console.log(goodsName);
+//
+//
+//					for (var i=0;i<10;i++) {
+//						$('.close_pic').eq(i).attr('src',json[i].goodsListImg);
+//				  }
+//
+//				});			
+				
+				//data指的是后台返回给你的数据
+				//成功后的回调函数
+			},
+			error:function(data){
+				//失败后的回调函数
+				if(data == 0){
+					console.log("无数据！");
+				}
+			},
+			beforeSend:function(){
+				//发送前调用
+			}
+		});
+	}
+      
+//    window.location.href = 'introduce.html?goodsID=';
+
+</script>
+</html>

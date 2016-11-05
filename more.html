@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <link rel="stylesheet" href="css/reset.css" />
+	    <link rel="stylesheet" href="css/index.css" />
+	    <link rel="stylesheet" href="css/list.css" />
+	    <link rel="stylesheet" href="css/more.css" />
+		<title>更多</title>
+	</head>
+	<body>
+		<nav>
+			<a href="index.html"><img class="logo" src="img/common/logo.png"></a>
+			<a href="loading.html"><img class="top_icon2" src="img/common/top_icon2.png" /></a>
+			<a href=""><img class="top_icon1" src="img/common/top_icon1.png" /></a>
+			
+		</nav>
+		<div class="more_main">
+			<!--<div class="more">-->
+				<ol>
+					<li>
+						<span class="name_close">信息中心 </span>
+				      	<span class="name_next"><img src="img/more/bg.png"/></span>
+					</li>
+					<li>
+						<span class="name_close">晒单分享 </span>
+				      	<span class="name_next"><img src="img/more/bg.png"/></span>
+					</li>
+					<li>
+						<span class="name_close">扫描二维码 </span>
+				      	<span class="name_next"><img src="img/more/bg.png"/></span>
+					</li>
+					<li>
+						<span class="name_close">系统设置 </span>
+				      	<span class="name_next"><img src="img/more/bg.png"/></span>
+					</li>
+				</ol>
+				<ol>
+					<li>
+						<span class="name_close">客服电话 </span>
+				      	<span class="name_next"><img src="img/more/bg.png"/></span>
+					</li>
+					<li>
+						<span class="name_close">软件更新 </span>
+				      	<span class="name_next"><img src="img/more/bg.png"/></span>
+					</li>
+					<li>
+						<span class="name_close">退货政策 </span>
+				      	<span class="name_next"><img src="img/more/bg.png"/></span>
+					</li>
+					<li>
+						<span class="name_close">关于我们 </span>
+				      	<span class="name_next"><img src="img/more/bg.png"/></span>
+					</li>
+				</ol>
+			<!--</div>-->
+		</div>
+		
+		<footer>
+			<ul id="footer1">
+				<li >
+					<a href="index.html"><img class="logo_footer" src="img/common/foot_bg1.png"><h5>首页</h5></a>
+				</li>
+				<li>
+					<a href="list.html"><img class="logo_footer" src="img/common/foot_bg2.png"><h5>分类</h5></a>
+				</li>
+				<li>
+					<a href="search.html"><img class="logo_footer" src="img/common/foot_bg3.png"><h5>搜索</h5></a>
+				</li>
+				<li>
+					<a href="more.html">
+						<img class="logo_footer" src="img/common/foot_bg4.png">
+						<h5>更多</h5>
+					</a>
+				</li>				
+			</ul>
+		</footer>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.0.0.js" ></script>
+	<script>
+		$(function(){
+		$(".logo_footer ").eq(3).attr('src','img/more/foot_icon4.png');
+		$("#footer1 li ").eq(3).css('backgroundImage','url(img/search/top_bgline.png)');
+	})
+	</script>
+</html>

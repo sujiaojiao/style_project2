@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <link rel="stylesheet" href="css/reset.css" />
+	    <link rel="stylesheet" href="css/index.css" />
+	    <link rel="stylesheet" href="css/search.css" />
+		<title>搜索</title>
+	</head>
+	<body>
+		<nav>
+			<a href="index.html"><img class="logo" src="img/common/logo.png"></a>
+			<a href="loading.html"><img class="top_icon2" src="img/common/top_icon2.png" /></a>
+			<a href=""><img class="top_icon1" src="img/common/top_icon1.png" /></a>
+			
+		</nav>
+		<div class="search_main">
+			<div class="search_div">
+				<img src="img/common/ser_bg.png" />
+				<input class="text" type="text"  placeholder="请输入搜索内容" />
+			</div>
+			<span class="search_btn">搜索</span>
+	
+		</div>
+		
+		<footer>
+			<ul id="footer1">
+				<li >
+					<a href="index.html"><img class="logo_footer" src="img/common/foot_bg1.png"><h5>首页</h5></a>
+				</li>
+				<li>
+					<a href="list.html"><img class="logo_footer" src="img/common/foot_bg2.png"><h5>分类</h5></a>
+				</li>
+				<li>
+					<a href="search.html"><img class="logo_footer" src="img/common/foot_bg3.png"><h5>搜索</h5></a>
+				</li>
+				<li>
+					<a href="more.html">
+						<img class="logo_footer" src="img/common/foot_bg4.png">
+						<h5>更多</h5>
+					</a>
+				</li>				
+			</ul>
+		</footer>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.0.0.js" ></script>
+	<script>
+	$(function(){
+		$(".logo_footer ").eq(2).attr('src','img/search/foot_icon3.png');
+		$("#footer1 li ").eq(2).css('backgroundImage','url(img/search/top_bgline.png)');
+	})
+	
+	$('.search_btn').click(function () {
+		var searchCon = $('.text').val();
+		window.location.href = 'searchgGoods.html?selectText='+encodeURI(searchCon);
+//		search(searchCon);		
+	})
+//	function search(name){
+//		$.ajax({
+//			type:"get",
+//			url:"http://datainfo.duapp.com/shopdata/selectGoodes.php",
+//			async:true,
+//			data:{
+//				selectText:encodeURI(name)
+//			},
+//			dataType:"jsonp",
+//			success:function(data){
+//				if(data == 0){
+//					$('.search_main').html("很抱歉，没有搜索到该商品!");
+//				}
+////	           console.log(data);    
+//				$('.search_btn').click(function () {
+//					var searchCon = $('.text').val();
+//					window.location.href = 'searchgGoods.html?selectText='+encodeURI(searchCon);
+////					search(searchCon);		
+//				})
+//	           
+// 
+//			}
+//		});
+//	}
+
+	</script>
+</html>

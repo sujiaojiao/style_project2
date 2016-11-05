@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <link rel="stylesheet" href="css/reset.css" />
+	    <link rel="stylesheet" href="css/index.css" />
+	    <link rel="stylesheet" href="css/login.css" />
+	    <link rel="stylesheet" href="css/list.css" />
+	    <link rel="stylesheet" href="css/introduce.css" />
+		<title>Goods详情</title>
+	</head>
+	<body>
+		<nav>
+			<img class="top_logo" src="img/landing/top_logo.png">
+		    <a href=""><img class="top_icon1" src="img/common/top_icon1.png" /></a>
+			<a href="loading.html"><img class="top_icon2" src="img/common/top_icon2.png" /></a>	
+		</nav>
+		<div class="goodsDetails_main">
+			<!--<div class="goodsDetails_pic">
+				<img src="img/index/banner-img2.jpg"/>
+				
+			</div>
+			<p>
+				产品参数：材质成分：棉100%。销售渠道类型：纯电商(只在线上销售)。货号：GW4937.服装版型：直筒。风格：通勤。通勤：韩版。衣长：长款贵。袖长：长袖。袖型：衬衫袖。灵型：其他。衣门禁：单排多扣。图案：碎花
+			</p>	-->
+		<!--<h1 style="width: 100%; height: 10%;"></h1>-->
+		</div>
+		
+	</body>
+	<script type="text/javascript" src="js/jquery-3.0.0.js" ></script>
+	<script>
+		$(function(){
+			getDetails();
+			$('.top_logo').click(function(url){
+				window.history.back(-1);
+			})
+		})
+		
+		function getDetails(){
+			$.ajax({
+			type:"get",
+			url:"http://datainfo.duapp.com/shopdata/getGoods.php",
+			async:true,
+			dataType:"jsonp",
+			data:{goodsID:GetQueryString('goodsID')},
+			success:function(data){
+				console.log(data);
+				$.each(data,function(i){
+					
+				 	
+//			       console.log(data[i].detail)
+				    for (var j = 0; j < eval(data[i].goodsBenUrl).length; j++) {
+				    	var goodsDetails_pic = "<div class='goodsDetails_pic'><img src='"+eval(data[i].goodsBenUrl)[j]+"'/></div>";    		
+				       $(".goodsDetails_main").append(goodsDetails_pic);
+				    }
+				   	var goodsDetails = "<p>"+data[i].detail+"</p>";    		
+				     $(".goodsDetails_main").append(goodsDetails);
+				})
+			},
+			error:function(data){
+				
+			}
+			
+		});
+		}
+		
+		function GetQueryString(name){
+			/*定义正则，用于获取相应的参数*/
+			var reg = new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
+			/*字符串截取，获取匹配参数值*/
+			var r = window.location.search.substr(1).match(reg);
+			/*但会参数值*/
+			if(r!=null)return decodeURI(r[2]); return null;
+		}
+		
+	</script>
+</html>
