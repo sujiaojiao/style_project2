@@ -1,0 +1,43 @@
+.more_main{
+	position: absolute;
+	top: 10%;
+	width: 100%;
+	height: 100vh;
+	background: #f1eeee;		
+}
+.more_main  ol{
+	width: 80%;
+	height: 30%;	
+	/*background: red;*/
+	margin-top: 6%;
+	margin-left: 10%;
+}
+.more_main  ol li{
+	width: 100%;
+	height: 24%;
+	border: 1px solid #D6D6D6;
+	background: #ffffff;
+	/*background: pink;*/
+	/*line-height: 7vh;*/
+	overflow: hidden;
+	
+}
+.more_main  .name_close{
+	width: 40%;
+	height: 100%;
+	/*background: green;*/
+	float: left;
+	line-height: 7.2vh;
+	margin-left: 10%;
+	display: inline-block;
+		
+}
+.more_main  .name_next{
+	width: 11%;
+	height: 100%;
+	/*background: gray;*/
+	float: right;
+	line-height: 8.5vh;
+	display: inline-block;
+}
+

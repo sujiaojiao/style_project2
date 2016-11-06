@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <link rel="stylesheet" href="css/reset.css" />
+	    <link rel="stylesheet" href="css/index.css" />
+	    <link rel="stylesheet" href="css/list.css" />
+	    <link rel="stylesheet" href="css/login.css" />
+		<title>商品列表</title>
+	</head>
+	<body>
+		<nav>
+			<img class="top_logo" src="img/landing/top_logo.png">
+			<a href="#"><strong  class="top_font2"></strong></a>	
+		    <a href=""><img class="top_icon1" src="img/common/top_icon1.png" /></a>
+			<a href="loading.html"><img class="top_icon2" src="img/common/top_icon2.png" /></a>	
+		</nav>
+		
+		<div class="list_goods">
+			<ol></ol>
+		</div>
+		
+		<footer>
+			<ul id="footer1">
+				<li >
+					<a href="index.html"><img class="logo_footer" src="img/common/foot_bg1.png"><h5>首页</h5></a>
+				</li>
+				<li>
+					<a href="list.html"><img class="logo_footer" src="img/common/foot_bg2.png"><h5>分类</h5></a>
+				</li>
+				<li>
+					<a href="search.html"><img class="logo_footer" src="img/common/foot_bg3.png"><h5>搜索</h5></a>
+				</li>
+				<li>
+					<a href="more.html">
+						<img class="logo_footer" src="img/common/foot_bg4.png">
+						<h5>更多</h5>
+					</a>
+				</li>				
+			</ul>
+		</footer>
+		
+	</body>
+	<script type="text/javascript" src="js/jquery-3.0.0.js"></script>
+	<script>
+		$(function(){
+			
+			$('.top_logo').click(function(url){
+				window.history.back(-1);
+			})
+			list_goods();
+		})
+		$(function(){
+			$('.list_goods li').click(function(){
+				window.location.href = 'introduce.html';
+			})
+		})
+	$(function(){
+		$(".logo_footer ").eq(1).attr('src','img/list/foot_icon2.jpg');
+		$("#footer1 li ").eq(1).css('backgroundImage','url(img/search/top_bgline.png)');
+	})
+	function jumpList(obj){
+			obj.bind('click',function(){
+				window.location.href = 'introduce.html?goodsID='+$(this).attr("goodsID");
+			})
+         
+		}
+	function list_goods(){
+		$.ajax({
+			type:"get",
+			url:"http://datainfo.duapp.com/shopdata/getGoods.php",
+			async:true,
+			dataType:"jsonp",
+			data:{classID:GetQueryString("classID")},
+			success:function(data){
+				console.log(data);
+				$.each(data, function(index) {
+					console.log(data[index].goodsListImg);
+					$('.top_font2').html(data[index].className);
+					var oli = '<li class="intruduce_list" goodsID='+data[index].goodsID+' ><img src="'+data[index].goodsListImg+'" /><h6>'+data[index].goodsName+'</h6><p>'+data[index].price+'</p></li>';
+					$(".list_goods ol").append(oli);
+					jumpList($(".intruduce_list"));
+				});
+				var oli2 = '<li style="width: 100%; height: 9.5%;"></li>';
+					$(".list_goods ol").append(oli2);
+					
+			}
+		});
+	}
+	function GetQueryString(name){
+			/*定义正则，用于获取相应的参数*/
+			var reg = new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
+			/*字符串截取，获取匹配参数值*/
+			var r = window.location.search.substr(1).match(reg);
+			/*但会参数值*/
+			if(r!=null)return decodeURI(r[2]); return null;
+		}
+	
+	
+	
+	</script>
+</html>

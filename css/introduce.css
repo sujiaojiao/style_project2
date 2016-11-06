@@ -1,0 +1,94 @@
+.introduce_main{
+	position: absolute;
+	top: 10%;
+	width: 100%;
+	height: 90vh;
+}
+.introduce_main_pic{
+	width: 100%;
+	height: 73%;
+	background: #f1eeee;
+}
+.introduce_main_pic img{
+	width: 100%;
+	height: 64%;
+}
+
+.introduce_main_pic h4{
+	margin: 1% 3.6% 0 3.6%;
+}
+.introduce_main_pic .one{
+	margin-top: 3%;
+}
+.introduce_main_pic h4 span:nth-child(1){
+	color: #DE245C;
+	margin-right: 5%;
+}
+.introduce_main_pic h4 span:nth-child(2){
+	text-decoration: line-through;
+}
+.introduce_goods{
+	width: 100%;
+	height:16%;
+	position: relative;
+	
+}
+.introduce_goods img:nth-child(1){
+	position: absolute;
+	left: 3.9%;
+	top: 30%;
+}
+.introduce_goods img:nth-child(3){
+	position: absolute;
+	right: 4%;
+	top: 30%;
+}
+.introduce_goods span{
+	position: absolute;
+	left: 16%;
+	top: 39%;
+}
+.introduce_shop_car{
+	width: 100%;
+	height: 13%;
+	background: #B5B5B5;
+	position: absolute;
+	bottom: 0;
+}
+.shop_car_btn{
+	width: 50%;
+	height: 80%;
+	background: #DE245C;
+	color: #FFFFFF;
+	border-radius: 6px;
+	text-align: center;
+	line-height: 9.6vh;
+	position: absolute;
+	top: 10%;
+	left: 25%;
+}
+.goodsDetails_main{
+	width: 100%;
+	/*height: 220%;*/
+	position: absolute;
+	background: #F1EEEE;
+	top: 10%;
+}
+.goodsDetails_main .goodsDetails_pic{
+	width: 94%;
+	/*height: 21.5%;*/
+	/*position: absolute;*/
+	/*background: green;*/
+	margin: 1% 3% 0% 3%;	
+}
+.goodsDetails_main img{
+	width: 100%;
+	height: 200px;
+}
+ p{
+ 	/*width: 100%;
+ 	height: 20%;
+	position: absolute;
+	top: 200%;*/
+	margin: 5% 3% 15% 3%;	
+}

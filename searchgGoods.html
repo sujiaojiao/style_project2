@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	    <link rel="stylesheet" href="css/reset.css" />
+	    <link rel="stylesheet" href="css/index.css" />
+	    <link rel="stylesheet" href="css/login.css" />
+	    <link rel="stylesheet" href="css/list.css" />
+	    <link rel="stylesheet" href="css/introduce.css" />
+	    <link rel="stylesheet" href="css/search.css" />
+		<title>搜索商品</title>
+	</head>
+	<body>
+		<nav>
+			<img class="top_logo" src="img/landing/top_logo.png">
+		    <a href=""><img class="top_icon1" src="img/common/top_icon1.png" /></a>
+			<a href="loading.html"><img class="top_icon2" src="img/common/top_icon2.png" /></a>	
+		</nav>
+		<div class="searchGoods_main">
+			<ol>
+				<!--<li>
+					<img src="img/index/banner-img3.jpg" />
+					<h6>茵曼 2015秋装新款文艺长袖格子</h6>
+					<p> <strong>¥338</strong> <strong>¥1183</strong> </p>
+				</li>
+				<li>
+					<img src="img/su/pic15.jpg" />
+					<h6>韩都衣舍韩版 2015秋装新款衣</h6>
+					<p> <strong>¥338</strong> <strong>¥1183</strong> </p>
+				</li>
+				<li>
+					<img src="img/index/banner-img3.jpg" />
+					<h6>茵曼 2015秋装新款文艺长袖格子</h6>
+					<p> <strong>¥338</strong> <strong>¥1183</strong> </p>
+				</li>
+				<li>
+					<img src="img/su/pic15.jpg" />
+					<h6>韩都衣舍韩版 2015秋装新款衣</h6>
+					<p> <strong>¥338</strong> <strong>¥1183</strong> </p>
+				</li>-->
+			</ol>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.0.0.js" ></script>
+	<script>
+		$(function(){
+			$('.top_logo').click(function(url){
+				window.history.back(-1);
+			})
+			getSearch();
+		})
+		
+		function getSearch(){
+			$.ajax({
+				type:"get",
+				url:" http://datainfo.duapp.com/shopdata/selectGoodes.php",
+				async:true,
+				dataType:"jsonp",
+				data:{selectText:GetQueryString("selectText")},
+				success:function(data){
+					console.log(data);
+					$.each(data, function(i) {
+						$dis = (data[i].discount == 0)?1:data[i].discount*0.1;
+						var oli = '<li class="searchList" goodsID='+data[i].goodsID+'><img src="'+data[i].goodsListImg+'" /><h6>'+data[i].goodsName+'</h6><p> <strong>¥'+data[i].price+'</strong> <strong>¥'+parseInt(data[i].price/$dis) +'</strong></p></li>';
+					    $("ol").append(oli);
+					    jumpList($('.searchList'));				
+					});
+				}				
+			});
+		}
+		function jumpList(obj){
+			obj.bind('click',function(){
+				window.location.href = 'introduce.html?goodsID='+$(this).attr("goodsID");
+			})
+         
+		}
+		function GetQueryString(name){
+			/*定义正则，用于获取相应的参数*/
+			var reg = new RegExp("(^|&)"+name+"=([^&]*)(&|$)");
+			/*字符串截取，获取匹配参数值*/
+			var r = window.location.search.substr(1).match(reg);
+			/*但会参数值*/
+			if(r!=null)return decodeURI(r[2]); return null;
+		}
+		
+	</script>
+</html>

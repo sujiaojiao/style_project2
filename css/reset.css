@@ -1,0 +1,31 @@
+html,body{
+	width: 100%;	
+	/*overflow: scroll;*/
+}
+*{
+	padding: 0;
+	margin: 0;
+}
+
+ul,ol,li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+input{
+	border: none;
+	outline: none;
+}
+a{
+	color: #FFFFFF;
+}
+@media only screen and (min-width: 450px) {
+	.main .right h6{
+		font-size: 1.4rem;
+	}
+	.main .right p{
+		font-size: 1.4rem;
+	}
+}
+
